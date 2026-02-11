@@ -2,712 +2,191 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Tenuta BubbleBee - Luxury Spa Resort innovativo a Sant'Eusanio del Sangro">
-    <meta name="theme-color" content="#0A0E27">
-    <title>Tenuta BubbleBee - Future Luxury Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenuta BubbleBee - Luxury Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --dark: #0A0E27;
             --accent: #00E5A0;
-            --secondary: #6366F1;
             --light: #F8FAFC;
             --glass: rgba(255, 255, 255, 0.05);
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #00E5A0 0%, #00A896 100%);
-            --gradient-3: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; background: var(--dark); color: var(--light); overflow-x: hidden; }
 
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            color: var(--light);
-            background: var(--dark);
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-            cursor: none; /* Custom cursor */
-        }
-
-        /* --- CUSTOM CURSOR --- */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
-            transform: translate(-50%, -50%); /* Centratura corretta */
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-            transform: translate(-50%, -50%); /* Centratura corretta */
-        }
-
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 14, 39, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 229, 160, 0.1);
-        }
-
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-
-        .nav-links { display: flex; gap: 3rem; list-style: none; }
-
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            text-transform: uppercase;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover { color: var(--accent); }
-        .nav-links a:hover::before { width: 100%; }
-
-        /* --- MOBILE MENU --- */
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            max-width: 300px;
-            height: 100vh;
-            background: rgba(10, 14, 39, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 9999;
-            transition: right 0.4s ease;
-            padding: 2rem;
-            border-left: 1px solid rgba(0, 229, 160, 0.2);
-        }
-        .mobile-nav.active { right: 0; }
-        
-        .mobile-nav-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mobile-nav-links {
-            list-style: none;
-            margin-top: 4rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .mobile-nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: block;
-        }
-
-        .mobile-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9998;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-        }
-        .mobile-overlay.active { opacity: 1; visibility: visible; }
-
-        /* --- HERO SECTION --- */
+        /* --- HERO CORRETTO --- */
         .hero {
             height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            text-align: center;
+            background: #000; /* Fondo nero di sicurezza */
         }
 
-        /* Video Background Fixed */
-        .hero-video {
+        /* Video e Immagine di fallback */
+        .hero-bg-container {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 0; /* Base layer */
             opacity: 0.6;
         }
 
-        .hero-video-overlay {
+        /* Overlay scuro per leggibilità */
+        .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(10, 14, 39, 0.8) 0%, rgba(10, 14, 39, 0.4) 100%);
-            z-index: 1; /* Sopra il video */
-        }
-
-        /* Api animate sopra overlay ma sotto testo */
-        .bee-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2; 
-            pointer-events: none;
-            overflow: hidden;
+            background: radial-gradient(circle, rgba(10,14,39,0.2) 0%, rgba(10,14,39,0.8) 100%);
+            z-index: 2;
         }
 
         .hero-content {
-            text-align: center;
-            z-index: 10; /* Sopra tutto */
             position: relative;
-            padding: 0 5%;
+            z-index: 10;
+            padding: 0 20px;
         }
 
-        .hero-label {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
+        h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 1; margin-bottom: 1rem; }
+        .accent-text { color: var(--accent); }
+
+        /* --- CARDS CON IMMAGINI --- */
+        .section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        .card {
             background: var(--glass);
-            border: 1px solid rgba(0, 229, 160, 0.3);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .hero h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(3rem, 7vw, 6rem);
-            font-weight: 800;
-            letter-spacing: -3px;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
-            animation: fadeIn 1s ease-out 0.2s both;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-            animation: fadeIn 1s ease-out 0.4s both;
-        }
-
-        .cta-group {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            animation: fadeIn 1s ease-out 0.6s both;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            padding: 1.2rem 3rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            position: relative;
+            border-radius: 24px;
             overflow: hidden;
-            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
         }
 
-        .cta-primary { background: var(--gradient-2); color: var(--dark); border: none; }
-        .cta-secondary { background: transparent; color: var(--light); border: 2px solid var(--accent); }
-        .cta-secondary:hover { background: var(--accent); color: var(--dark); }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
 
-        /* --- ANIMATED BEES STYLES --- */
+        .card-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-body { padding: 25px; }
+        .price { color: var(--accent); font-weight: 700; font-size: 1.2rem; display: block; margin-top: 15px; }
+
+        /* --- API ANIMATE --- */
         .bee {
             position: absolute;
+            z-index: 5;
             font-size: 2rem;
-            opacity: 0.8;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-            will-change: transform;
-        }
-        
-        @keyframes flyBee {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            25% { transform: translate(100px, -50px) rotate(15deg) scale(1.1); }
-            50% { transform: translate(50px, 100px) rotate(-10deg) scale(0.9); }
-            75% { transform: translate(-50px, 50px) rotate(5deg) scale(1.05); }
-            100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            pointer-events: none;
+            animation: fly 15s infinite linear;
         }
 
-        /* --- SECTIONS COMMON --- */
-        .section { padding: 8rem 5%; position: relative; z-index: 10; background: var(--dark); }
-        
-        .section-header { max-width: 800px; margin: 0 auto 5rem; text-align: center; }
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.5) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .section-label {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: var(--glass);
-            border: 1px solid rgba(0, 229, 160, 0.2);
-            border-radius: 50px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
+        @keyframes fly {
+            0% { transform: translate(-10vw, 20vh) rotate(0deg); }
+            25% { transform: translate(30vw, 10vh) rotate(20deg); }
+            50% { transform: translate(60vw, 40vh) rotate(-10deg); }
+            75% { transform: translate(90vw, 20vh) rotate(10deg); }
+            100% { transform: translate(110vw, 50vh); }
         }
 
-        /* --- ABOUT --- */
-        .about { background: linear-gradient(180deg, var(--dark) 0%, #0f1335 100%); }
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1400px; margin: 0 auto; }
-        
-        .feature-item {
-            display: flex; gap: 1.5rem; padding: 1.5rem;
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 20px; backdrop-filter: blur(10px);
-            margin-bottom: 1rem; transition: 0.3s;
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; backdrop-filter: blur(10px); background: rgba(10,14,39,0.7);
         }
-        .feature-item:hover { border-color: var(--accent); transform: translateX(10px); }
-        .feature-icon { font-size: 2rem; color: var(--accent); }
-        
-        /* Visual cards grid placeholders */
-        .about-visual { position: relative; height: 500px; }
-        .visual-card {
-            position: absolute; background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 30px;
-        }
-        .visual-card:nth-child(1) { top: 0; left: 0; width: 60%; height: 300px; background: rgba(99,102,241,0.1); }
-        .visual-card:nth-child(2) { bottom: 0; right: 0; width: 60%; height: 300px; background: rgba(0,229,160,0.1); }
-        
-        /* --- ROOMS --- */
-        .rooms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; max-width: 1400px; margin: 0 auto; }
-        .room-card {
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 30px; overflow: hidden; transition: 0.5s;
-        }
-        .room-card:hover { transform: translateY(-15px); border-color: var(--accent); }
-        .room-image { height: 250px; background: #1a1f3c; position: relative; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
-        .room-content { padding: 2rem; }
-        .room-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .room-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
-        .room-price { color: var(--accent); font-weight: 700; font-size: 1.2rem; }
-        .book-button { padding: 0.5rem 1.5rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 50px; text-decoration: none; font-size: 0.8rem; transition: 0.3s; }
-        .book-button:hover { background: var(--accent); color: var(--dark); }
-
-        /* --- SPA --- */
-        .spa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1400px; margin: 0 auto; }
-        .spa-card { padding: 2.5rem; background: var(--glass); border: 1px solid rgba(255,255,255,0.05); border-radius: 30px; transition: 0.3s; text-align: center; }
-        .spa-card:hover { border-color: var(--accent); transform: translateY(-10px); }
-        .spa-icon { font-size: 3rem; display: block; margin-bottom: 1.5rem; }
-
-        /* --- LOCATION --- */
-        .location-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; text-align: center; }
-        .location-card { padding: 2rem; background: var(--glass); border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); }
-        .location-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-
-        /* --- CONTACT & FOOTER --- */
-        .contact { background: linear-gradient(180deg, var(--dark) 0%, var(--secondary) 100%); }
-        .contact-info { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; }
-        .contact-item { padding: 2rem; background: var(--glass); border-radius: 20px; text-align: center; min-width: 200px; }
-        
-        footer { background: var(--dark); padding: 3rem 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        footer p { opacity: 0.5; font-size: 0.9rem; }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .about-content { grid-template-columns: 1fr; }
-            .about-visual { height: 300px; margin-top: 2rem; }
-            .section-title { font-size: 2.5rem; }
-        }
-
-        @media (max-width: 768px) {
-            .cursor, .cursor-follower { display: none; }
-            body { cursor: auto; }
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .hero h1 { font-size: 3rem; }
-            .section { padding: 4rem 5%; }
-            .bee { font-size: 1.5rem; opacity: 0.5; }
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
     <nav>
-        <div class="logo">BUBBLEBEE</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">Experience</a></li>
-            <li><a href="#rooms">Rooms</a></li>
-            <li><a href="#spa">Wellness</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">Menu</button>
+        <div style="font-family:'Syne'; font-weight:800; letter-spacing:-1px;">BUBBLEBEE</div>
+        <div style="font-size: 0.8rem; letter-spacing: 2px;">SANT'EUSANIO DEL SANGRO</div>
     </nav>
 
-    <div class="mobile-overlay" onclick="toggleMobileMenu()"></div>
-    <div class="mobile-nav">
-        <div class="mobile-nav-close" onclick="toggleMobileMenu()">×</div>
-        <ul class="mobile-nav-links">
-            <li><a href="#home" onclick="toggleMobileMenu()">Home</a></li>
-            <li><a href="#about" onclick="toggleMobileMenu()">Experience</a></li>
-            <li><a href="#rooms" onclick="toggleMobileMenu()">Rooms</a></li>
-            <li><a href="#spa" onclick="toggleMobileMenu()">Wellness</a></li>
-            <li><a href="#contact" onclick="toggleMobileMenu()">Contact</a></li>
-        </ul>
-    </div>
-
-    <section id="home" class="hero">
-        
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-a-green-forest-8035/1080p.mp4" type="video/mp4">
-        </video>
-        <div class="hero-video-overlay"></div>
-
-        <div class="bee-wrapper">
-            <div class="bee" style="top: 20%; left: 10%; animation: flyBee 18s ease-in-out infinite;">🐝</div>
-            <div class="bee" style="top: 60%; left: 80%; animation: flyBee 22s ease-in-out infinite; animation-delay: 2s;">🐝</div>
-            <div class="bee" style="top: 40%; left: 70%; animation: flyBee 16s ease-in-out infinite; animation-delay: 4s;">🐝</div>
-            <div class="bee" style="top: 80%; left: 20%; animation: flyBee 20s ease-in-out infinite; animation-delay: 1s;">🐝</div>
-            <div class="bee" style="top: 30%; left: 50%; animation: flyBee 19s ease-in-out infinite; animation-delay: 3s;">🐝</div>
+    <section class="hero">
+        <div class="hero-bg-container">
+            <video class="hero-video" autoplay muted loop playsinline poster="https://images.pexels.com/photos/1671325/pexels-photo-1671325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+                <source src="https://player.vimeo.com/external/451310121.sd.mp4?s=49b8005b68266d628d05562723700b67659a8571&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
         </div>
+
+        <div class="bee">🐝</div>
 
         <div class="hero-content">
-            <span class="hero-label">Future of Luxury</span>
-            <h1>TENUTA<br>BUBBLEBEE</h1>
-            <p class="hero-subtitle">Where Innovation Meets Nature</p>
-            <div class="cta-group">
-                <a href="#contact" class="cta-button cta-primary">Prenota Ora</a>
-                <a href="#about" class="cta-button cta-secondary">Scopri di Più</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="section about">
-        <div class="section-header">
-            <span class="section-label">Innovation</span>
-            <h2 class="section-title">Un'Esperienza Rivoluzionaria</h2>
-            <p style="opacity:0.7; max-width:600px; margin:0 auto;">Tecnologia e natura si fondono per creare un'esperienza di lusso senza precedenti.</p>
-        </div>
-        <div class="about-content">
-            <div class="about-text-block">
-                <div class="feature-item">
-                    <span class="feature-icon">🌐</span>
-                    <div>
-                        <h3 style="color:var(--accent); margin-bottom:0.5rem;">Design Futuristico</h3>
-                        <p style="opacity:0.7;">Architettura innovativa che ridefinisce il concetto di lusso.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🫧</span>
-                    <div>
-                        <h3 style="color:var(--accent); margin-bottom:0.5rem;">Bubble Technology</h3>
-                        <p style="opacity:0.7;">Bubble Room con esperienza immersiva a 360°.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🧬</span>
-                    <div>
-                        <h3 style="color:var(--accent); margin-bottom:0.5rem;">Wellness Avanzato</h3>
-                        <p style="opacity:0.7;">Trattamenti spa che integrano tecnologie all'avanguardia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="about-visual">
-                <div class="visual-card"></div>
-                <div class="visual-card"></div>
-            </div>
+            <p style="letter-spacing: 5px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 1rem;">Welcome to the Future</p>
+            <h1>TENUTA<br><span class="accent-text">BUBBLEBEE</span></h1>
+            <p style="max-width: 600px; margin: 0 auto 2rem; opacity: 0.8;">L'esclusivo Resort in Abruzzo dove il design futuristico incontra la purezza della natura.</p>
+            <a href="#rooms" style="text-decoration: none; color: #000; background: var(--accent); padding: 15px 40px; border-radius: 50px; font-weight: 600; text-transform: uppercase; font-size: 0.8rem;">Prenota Suite</a>
         </div>
     </section>
 
     <section id="rooms" class="section">
-        <div class="section-header">
-            <span class="section-label">Accommodations</span>
-            <h2 class="section-title">Le Nostre Camere</h2>
-        </div>
-        <div class="rooms-grid">
-            <div class="room-card">
-                <div class="room-image">🌲</div>
-                <div class="room-content">
-                    <h3 class="room-title">Suite Bosco</h3>
-                    <p style="opacity:0.7; font-size:0.9rem;">Design contemporaneo con vista panoramica sui boschi.</p>
-                    <div class="room-footer">
-                        <span class="room-price">€180/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
+        <h2 style="font-family:'Syne'; font-size: 2.5rem; margin-bottom: 40px;">Soggiorni Immersivi</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.pexels.com/photos/2613946/pexels-photo-2613946.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Suite Bosco" class="card-img">
+                <div class="card-body">
+                    <h3>Suite Bosco</h3>
+                    <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 10px;">Vivi l'emozione di dormire tra gli alberi con pareti trasparenti adattive.</p>
+                    <span class="price">€180 / notte</span>
                 </div>
             </div>
-            <div class="room-card">
-                <div class="room-image">🏔️</div>
-                <div class="room-content">
-                    <h3 class="room-title">Suite Vallata</h3>
-                    <p style="opacity:0.7; font-size:0.9rem;">Affacciata sulla valle con illuminazione adattiva.</p>
-                    <div class="room-footer">
-                        <span class="room-price">€170/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
+            <div class="card">
+                <img src="https://images.pexels.com/photos/3315291/pexels-photo-3315291.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Bubble Room" class="card-img">
+                <div class="card-body">
+                    <h3>Bubble Room Tech</h3>
+                    <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 10px;">La nostra cupola geodetica iconica. Vista stelle a 360 gradi.</p>
+                    <span class="price">€250 / notte</span>
                 </div>
             </div>
-            <div class="room-card">
-                <div class="room-image">⭐</div>
-                <div class="room-content">
-                    <h3 class="room-title">Suite Cielo</h3>
-                    <p style="opacity:0.7; font-size:0.9rem;">Lucernario panoramico e vetro elettrocromico.</p>
-                    <div class="room-footer">
-                        <span class="room-price">€190/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
-                </div>
-            </div>
-            <div class="room-card">
-                <div class="room-image">🫧</div>
-                <div class="room-content">
-                    <h3 class="room-title">Bubble Room Tech</h3>
-                    <p style="opacity:0.7; font-size:0.9rem;">Cupola trasparente high-tech con vista a 360°.</p>
-                    <div class="room-footer">
-                        <span class="room-price">€250/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
+            <div class="card">
+                <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Suite Wellness" class="card-img">
+                <div class="card-body">
+                    <h3>Suite Wellness</h3>
+                    <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 10px;">Spa privata in camera e sistemi di bio-hacking per il relax.</p>
+                    <span class="price">€210 / notte</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="spa" class="section spa">
-        <div class="section-header">
-            <span class="section-label">Wellness</span>
-            <h2 class="section-title">Centro Benessere</h2>
-        </div>
-        <div class="spa-grid">
-            <div class="spa-card">
-                <span class="spa-icon">💆</span>
-                <h3>Massaggi Tech</h3>
-                <p>Tecniche tradizionali unite a tecnologie moderne.</p>
+    <section id="spa" class="section" style="background: rgba(99, 102, 241, 0.05); border-radius: 50px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 50px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="font-family:'Syne'; font-size: 2.5rem; margin-bottom: 20px;">Digital Detox Spa</h2>
+                <p style="opacity: 0.8; line-height: 1.6; margin-bottom: 25px;">La nostra Spa non è solo acqua. Usiamo frequenze sonore e luci biodinamiche per resettare il tuo sistema nervoso in pochi minuti.</p>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">✅ Vasche di deprivazione sensoriale</li>
+                    <li style="margin-bottom: 10px;">✅ Sauna finlandese hi-tech</li>
+                    <li style="margin-bottom: 10px;">✅ Percorso idroterapico</li>
+                </ul>
             </div>
-            <div class="spa-card">
-                <span class="spa-icon">🧘</span>
-                <h3>Yoga Immersivo</h3>
-                <p>Sessioni nel giardino zen con realtà aumentata.</p>
-            </div>
-            <div class="spa-card">
-                <span class="spa-icon">🛁</span>
-                <h3>Hydro Therapy</h3>
-                <p>Percorso wellness con cromoterapia e idroterapia.</p>
+            <div style="flex: 1; min-width: 300px;">
+                <img src="https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Spa Resort" style="width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
             </div>
         </div>
     </section>
 
-    <section id="location" class="section">
-        <div class="section-header">
-            <span class="section-label">Location</span>
-            <h2 class="section-title">Nel Cuore dell'Abruzzo</h2>
-        </div>
-        <div class="location-grid">
-            <div class="location-card">
-                <div class="location-icon">🏔️</div>
-                <h3>Majella</h3>
-                <p>30 minuti</p>
-            </div>
-            <div class="location-card">
-                <div class="location-icon">🏖️</div>
-                <h3>Costa dei Trabocchi</h3>
-                <p>25 minuti</p>
-            </div>
-            <div class="location-card">
-                <div class="location-icon">🏰</div>
-                <h3>Borghi</h3>
-                <p>Nei dintorni</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section contact">
-        <div class="section-header">
-            <span class="section-label">Get in Touch</span>
-            <h2 class="section-title">Prenota la Tua Esperienza</h2>
-        </div>
-        <div class="contact-info">
-            <div class="contact-item">
-                <span style="font-size:2rem; display:block; margin-bottom:1rem;">📍</span>
-                <p>Sant'Eusanio del Sangro<br>Chieti, Abruzzo</p>
-            </div>
-            <div class="contact-item">
-                <span style="font-size:2rem; display:block; margin-bottom:1rem;">📧</span>
-                <p>info@tenutabubblebee.it</p>
-            </div>
-            <div class="contact-item">
-                <span style="font-size:2rem; display:block; margin-bottom:1rem;">📱</span>
-                <p>+39 123 456 789</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Tenuta BubbleBee - Future Luxury Experience</p>
+    <footer style="padding: 50px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 50px;">
+        <p style="opacity: 0.5;">&copy; 2026 Tenuta BubbleBee - Sant'Eusanio del Sangro (CH)</p>
     </footer>
 
-    <script>
-        // Gestione Menu Mobile
-        function toggleMobileMenu() {
-            const mobileNav = document.querySelector('.mobile-nav');
-            const mobileOverlay = document.querySelector('.mobile-overlay');
-            mobileNav.classList.toggle('active');
-            mobileOverlay.classList.toggle('active');
-            
-            if (mobileNav.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-
-        // Cursore Custom
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        if (window.innerWidth > 768) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX + 'px';
-                    cursorFollower.style.top = e.clientY + 'px';
-                }, 100);
-            });
-        }
-
-        // Scroll fluido per i link
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Chiudi menu se aperto
-                    const mobileNav = document.querySelector('.mobile-nav');
-                    if (mobileNav.classList.contains('active')) toggleMobileMenu();
-                }
-            });
-        });
-
-        // Fade in elementi allo scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.room-card, .spa-card, .contact-item').forEach((el) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
 </body>
 </html>
