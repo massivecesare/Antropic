@@ -1,264 +1,309 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tenuta BubbleBee - Il primo Bio-Resort hi-tech in Abruzzo">
-    <title>Tenuta BubbleBee | Natural Tech Retreat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Playfair+Display:italic,wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0f1a16; /* Deep Jungle Green */
-            --accent: #d4af37;  /* Metallic Gold */
-            --soft-white: #f4f7f5;
-            --glass: rgba(15, 26, 22, 0.85);
-            --gradient-forest: linear-gradient(135deg, #1a2e26 0%, #0f1a16 100%);
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BUBBLEBEE | Luxury B&B</title>
+  <meta name="description" content="Bubblebee Luxury B&B: retreat di charme tra colline di grano, Maiella e Costa dei Trabocchi.">
+  <style>
+    :root{
+      --bg:#050505; --text:#f5f5f5; --muted:#b3b3b3; 
+      --accent:#e6b43c; /* Un oro più caldo color miele */
+      --radius:16px; --pill:999px; --maxw:1100px; --shadow:0 18px 45px rgba(0,0,0,0.55);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%; overflow-x: hidden;}
+    body{
+      font-family:var(--font);
+      background-color: var(--bg);
+      background-image: linear-gradient(180deg,#0b0b0b 0,#050505 100%);
+      color:var(--text); -webkit-font-smoothing:antialiased;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* SFONDO ANIMATO CON API */
+    #bee-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1; /* Resta dietro a tutto */
+      pointer-events: none;
+    }
 
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--primary);
-            color: var(--soft-white);
-            overflow-x: hidden;
-            cursor: default;
-        }
+    a{color:inherit;text-decoration:none}
+    .shell{max-width:var(--maxw);margin:0 auto;padding:14px; position: relative; z-index: 1;}
+    
+    header{
+      position:sticky;top:0;z-index:40;
+      background:rgba(5,5,5,0.7);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px}
+    
+    .brand{ display:flex;align-items:center;gap:10px; }
+    .brand-logo{ display:flex;align-items:center;justify-content:center; width:auto; height:48px; }
+    .brand-logo img{ display:block; max-height:48px; width:auto; object-fit:contain; max-width:160px; }
+    .brand-text{display:none} 
 
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%; z-index: 1000;
-            padding: 1.5rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
+    .nav-toggle{display:flex;align-items:center;gap:8px}
+    .hamburger{
+      width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;
+      cursor:pointer;font-size:18px;color:var(--muted)
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#f7e3a8,var(--accent));color:#1a1205;border:none;padding:10px 18px;border-radius:999px;font-weight:600;
+      box-shadow: 0 4px 15px rgba(230, 180, 60, 0.2);cursor:pointer;font-size:0.85rem; transition: transform 0.2s;
+    }
+    .btn-primary:hover { transform: scale(1.03); }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 2px;
-        }
+    .nav-panel{
+      position:fixed;inset:0;top:64px;
+      background:rgba(5,5,5,0.98);
+      transform:translateY(-10px);opacity:0;pointer-events:none;transition:all .3s ease;
+      padding:20px;display:flex;flex-direction:column;gap:12px;
+    }
+    .nav-panel.open{transform:none;opacity:1;pointer-events:auto}
+    .nav-panel a{padding:16px;border-radius:14px;background:rgba(255,255,255,0.03);display:block;font-weight:600}
 
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-links a {
-            text-decoration: none; color: var(--soft-white);
-            font-size: 0.9rem; font-weight: 500;
-            text-transform: uppercase; transition: 0.3s;
-        }
-        .nav-links a:hover { color: var(--accent); }
+    .hero{display:grid;grid-template-columns:1fr;padding:30px 0;gap:24px;align-items:center}
+    .hero-badge{display:inline-flex;padding:6px 12px;border-radius:999px;background:rgba(230,180,60,0.1);border:1px solid rgba(230,180,60,0.2);font-size:0.75rem;color:var(--accent);font-weight:600;margin-bottom:12px}
+    .hero-title{font-size:2.2rem;line-height:1.1;text-transform:uppercase; font-weight: 800;}
+    .hero-title .accent{color:var(--accent)}
+    .hero-sub{color:var(--muted);margin:15px 0;font-size:1rem;line-height:1.6}
+    
+    .carousel{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);height:60vw;max-height:450px;background:#111}
+    .carousel .slide{position:absolute;inset:0;background-size:cover;background-position:center;transition:opacity .8s ease;opacity:0;}
+    .carousel .slide.active{opacity:1;}
+    .carousel .nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.3);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;color:#fff;border:none;cursor:pointer;z-index:2}
+    .carousel .nav-btn.left{left:15px}
+    .carousel .nav-btn.right{right:15px}
 
-        /* --- Hero Section --- */
-        .hero {
-            height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
-            text-align: center;
-        }
+    section{margin-top:50px}
+    .section-label{font-size:0.75rem;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;font-weight:700}
+    .section-title{font-size:1.6rem;text-transform:uppercase;margin-bottom:20px}
+    .cards-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    .card{border-radius:20px;padding:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05); backdrop-filter: blur(4px);}
+    .card img{width:100%;height:200px;object-fit:cover;border-radius:14px;margin-bottom:12px}
+    
+    .chip{background:rgba(230,180,60,0.1); padding:6px 12px; border-radius:999px; font-size:0.75rem; color:var(--accent); display:inline-block; margin:4px 4px 0 0;}
 
-        .hero-video {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -1; filter: brightness(0.4) contrast(1.1);
-        }
-
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1; margin-bottom: 1rem;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 2rem;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border: 1px solid var(--accent);
-            background: transparent;
-            color: var(--accent);
-            text-transform: uppercase;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.4s;
-            text-decoration: none;
-        }
-
-        .btn:hover { background: var(--accent); color: var(--primary); }
-
-        /* --- Sections --- */
-        .section { padding: 100px 10%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-        /* --- Room Cards --- */
-        .card {
-            background: #16241f;
-            border-radius: 5px;
-            overflow: hidden;
-            transition: transform 0.4s ease;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
-
-        .card-img {
-            width: 100%; height: 300px;
-            object-fit: cover;
-            filter: grayscale(30%);
-            transition: 0.5s;
-        }
-
-        .card:hover .card-img { filter: grayscale(0%); }
-
-        .card-body { padding: 2rem; }
-        .card-body h3 { font-family: 'Playfair Display', serif; margin-bottom: 1rem; color: var(--accent); }
-        .price { display: block; margin-top: 1rem; font-weight: 700; font-size: 1.2rem; }
-
-        /* --- Animations --- */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* --- Bee --- */
-        .floating-bee {
-            position: fixed; font-size: 1.5rem; pointer-events: none; z-index: 999;
-            filter: drop-shadow(0 0 5px var(--accent));
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .section { padding: 60px 5%; }
-        }
-    </style>
+    @media(min-width:720px){
+      .brand-text{display:flex;flex-direction:column;line-height:1}
+      .hero{grid-template-columns:1fr 1fr; gap:40px}
+      .carousel{height:380px}
+      .cards-grid{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">BUBBLEBEE</div>
-        <ul class="nav-links">
-            <li><a href="#about">Philosophy</a></li>
-            <li><a href="#rooms">Suites</a></li>
-            <li><a href="#spa">Wellness</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <a href="#rooms" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">Book</a>
+  <canvas id="bee-canvas"></canvas>
+
+  <header>
+    <div class="header-inner shell">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="logo1.JPG" alt="Logo" id="site-logo" onerror="this.src='https://via.placeholder.com/150x50?text=BUBBLEBEE'">
+        </div>
+        <div class="brand-text">
+          <span style="font-weight:700;letter-spacing:0.12em">Bubblebee</span>
+          <span style="font-size:0.72rem;color:var(--accent);letter-spacing:0.18em">Luxury B&amp;B</span>
+        </div>
+      </div>
+
+      <div class="nav-toggle">
+        <button class="btn-primary" onclick="scrollToSection('contatti')">Prenota ora</button>
+        <button class="hamburger" id="hamburger">☰</button>
+      </div>
+    </div>
+
+    <nav class="nav-panel" id="navPanel">
+      <a href="#suite" onclick="toggleNav()">Le Suite</a>
+      <a href="#bubble" onclick="toggleNav()">Bubble Rooms</a>
+      <a href="#esperienze" onclick="toggleNav()">Esperienze</a>
+      <a href="#territorio" onclick="toggleNav()">Territorio</a>
+      <a href="#contatti" onclick="toggleNav()">Contatti</a>
     </nav>
+  </header>
 
-    <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-top-view-of-a-dense-forest-1234-large.mp4" type="video/mp4">
-        </video>
-        <div class="hero-content">
-            <p>Unplug to Reconnect</p>
-            <h1>OASI DIGITALE<br>NEL BOSCO</h1>
-            <a href="#about" class="btn">Esplora la Tenuta</a>
-        </div>
+  <main class="shell">
+    <section class="hero" id="top">
+      <div>
+        <div class="hero-badge">Aperto per la stagione 2026</div>
+        <h1 class="hero-title">Un rifugio di<br><span class="accent">lusso autentico</span><br>in Abruzzo</h1>
+        <p class="hero-sub">Dormi sotto il firmamento nelle nostre iconiche Bubble Rooms o lasciati cullare dal silenzio delle suite di design tra le colline del Sangro.</p>
+        <button class="btn-primary" onclick="scrollToSection('suite')">Esplora la tenuta</button>
+      </div>
+
+      <div class="carousel" id="heroCarousel">
+        <div class="slide active" style="background-image:url('tenuta bubblebee.jpeg');"></div>
+        <div class="slide" style="background-image:url('vista tenuta.jpeg');"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800');"></div>
+        <button class="nav-btn left" onclick="heroPrev()">‹</button>
+        <button class="nav-btn right" onclick="heroNext()">›</button>
+      </div>
     </section>
 
-    <section id="about" class="section reveal">
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 2rem;">Biofilia & Tecnologia</h2>
-            <p style="line-height: 1.8; font-size: 1.1rem; opacity: 0.8;">
-                Situata nelle colline abruzzesi di Sant'Eusanio del Sangro, la Tenuta BubbleBee non è solo un resort, ma un ecosistema dove la domotica invisibile serve il tuo benessere naturale. Vetri elettrocromici, purificazione d'aria bio-attiva e isolamento acustico assoluto.
-            </p>
-        </div>
+    <section id="suite">
+      <div class="section-label">Ospitalità di Charme</div>
+      <h2 class="section-title">Suite <span class="accent">private</span></h2>
+      <div class="cards-grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800" alt="Suite">
+          <h3 style="margin-bottom:5px">Suite Aurea</h3>
+          <p style="color:var(--muted); font-size:0.9rem">Il colore del grano maturo entra dalle grandi vetrate. Design materico e comfort assoluto.</p>
+          <div class="chip">Vasca in camera</div><div class="chip">King Size</div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800" alt="Suite">
+          <h3 style="margin-bottom:5px">Suite Terra</h3>
+          <p style="color:var(--muted); font-size:0.9rem">Affacciata sulla maestosa Maiella, un nido accogliente dai toni caldi e naturali.</p>
+          <div class="chip">Terrazza Privata</div><div class="chip">Bio-Design</div>
+        </article>
+      </div>
     </section>
 
-    <section id="rooms" class="section">
-        <h2 class="reveal" style="text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 3rem;">Le Dimore</h2>
-        <div class="grid">
-            <div class="card reveal">
-                <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=800&q=80" alt="Forest Suite" class="card-img">
-                <div class="card-body">
-                    <h3>Suite Sottobosco</h3>
-                    <p>Immersa nel verde con pareti in vetro terra-cielo e materiali riciclati premium.</p>
-                    <span class="price">€195 / Notte</span>
-                </div>
-            </div>
-
-            <div class="card reveal">
-                <img src="https://images.unsplash.com/photo-1620393470010-fd629094776e?auto=format&fit=crop&w=800&q=80" alt="Crystal Bubble" class="card-img">
-                <div class="card-body">
-                    <h3>The Crystal Bubble</h3>
-                    <p>Dormi sotto le stelle della Majella con la nostra iconica cupola geodetica hi-tech.</p>
-                    <span class="price">€280 / Notte</span>
-                </div>
-            </div>
-
-            <div class="card reveal">
-                <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80" alt="Mountain View" class="card-img">
-                <div class="card-body">
-                    <h3>Golden Nest</h3>
-                    <p>Vista panoramica sulla Costa dei Trabocchi con terrazza sospesa e piscina privata.</p>
-                    <span class="price">€240 / Notte</span>
-                </div>
-            </div>
-        </div>
+    <section id="bubble">
+      <div class="section-label">L'esperienza Unica</div>
+      <h2 class="section-title">Dormire <span class="accent">nelle bolle</span></h2>
+      <div class="cards-grid">
+        <article class="card">
+          <img src="bubbleroom1.jpg" alt="Bubble Vega" onerror="this.src='https://images.unsplash.com/photo-1470252646218-d7a363d83280?auto=format&fit=crop&w=800'">
+          <h3>Bubble Vega</h3>
+          <p style="color:var(--muted); font-size:0.9rem">Trasparenza totale per perdersi nella Via Lattea senza rinunciare al lusso.</p>
+        </article>
+        <article class="card">
+          <img src="bubbleroom2.jpg" alt="Bubble Sirius" onerror="this.src='https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&w=800'">
+          <h3>Bubble Sirius</h3>
+          <p style="color:var(--muted); font-size:0.9rem">Immersa tra gli ulivi, per un risveglio magico con la luce dell'aurora.</p>
+        </article>
+      </div>
     </section>
 
-    <section id="spa" class="section reveal" style="background: #0a110e;">
-        <div class="grid" style="align-items: center;">
-            <div>
-                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1.5rem;">Sensorium Spa</h2>
-                <p style="margin-bottom: 2rem; opacity: 0.8;">Il nostro centro benessere utilizza frequenze sonore binaurali e aromaterapia neurale per un rilassamento profondo in soli 20 minuti.</p>
-                <ul style="list-style: none; color: var(--accent);">
-                    <li>⚡ Idromassaggio a Ioni</li>
-                    <li>⚡ Sauna Finlandese Smart</li>
-                    <li>⚡ Crioterapia Rigenerante</li>
-                </ul>
-            </div>
-            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80" alt="Spa Experience" style="width: 100%; border-radius: 5px;">
-        </div>
+    <section id="contatti" style="text-align: center; background: rgba(230,180,60,0.05); padding: 40px 20px; border-radius: 30px;">
+      <h2 class="section-title">Inizia il tuo <span class="accent">viaggio</span></h2>
+      <p style="color:var(--muted); margin-bottom: 25px;">Siamo a Sant'Eusanio del Sangro, nel cuore selvaggio e nobile dell'Abruzzo.</p>
+      <a href="mailto:info@bubblebee.it" class="btn-primary" style="font-size: 1rem; padding: 15px 30px;">Invia una richiesta</a>
     </section>
 
-    <footer style="padding: 5rem 5%; text-align: center; border-top: 1px solid rgba(212,175,55,0.1);">
-        <div class="logo" style="margin-bottom: 1rem;">BUBBLEBEE</div>
-        <p style="opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">SANT'EUSANIO DEL SANGRO (CH) | ITALY</p>
-        <div style="margin-top: 2rem;">
-            <a href="#" class="btn" style="font-size: 0.7rem;">Contattaci</a>
-        </div>
+    <footer style="margin-top: 60px; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-size: 0.8rem; color: var(--muted);">
+      <p>Bubblebee Luxury B&B © <span id="year"></span> · Sant'Eusanio del Sangro (CH)</p>
     </footer>
+  </main>
 
-    <script>
-        // --- Scroll Reveal Logic ---
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(r => {
-                var windowHeight = window.innerHeight;
-                var elementTop = r.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
-                    r.classList.add("active");
-                }
-            });
+  <script>
+    // Gestione Anno e Navigazione
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const hamburger = document.getElementById('hamburger');
+    const navPanel = document.getElementById('navPanel');
+    function toggleNav(){ navPanel.classList.toggle('open'); }
+    hamburger.addEventListener('click', toggleNav);
+    function scrollToSection(id){
+      navPanel.classList.remove('open');
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+
+    // Carousel Hero
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    function showSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+    function heroNext() { showSlide(currentSlide + 1); }
+    function heroPrev() { showSlide(currentSlide - 1); }
+    setInterval(heroNext, 5000);
+
+    // --- SCRIPT PER LE API ANIMATE ---
+    const canvas = document.getElementById('bee-canvas');
+    const ctx = canvas.getContext('2d');
+    let bees = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Bee {
+      constructor() {
+        this.init();
+      }
+      init() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        this.speedY = (Math.random() - 0.5) * 1.5;
+        this.size = Math.random() * 8 + 10; // Grandezza "tenere"
+        this.angle = Math.random() * Math.PI * 2;
+        this.wiggle = 0;
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(Math.atan2(this.speedY, this.speedX));
+        
+        // Disegno corpo ape stilizzata (cerchio oro)
+        ctx.beginPath();
+        ctx.fillStyle = '#e6b43c';
+        ctx.ellipse(0, 0, this.size/2, this.size/3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Strisce nere
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size/4);
+        ctx.lineTo(0, this.size/4);
+        ctx.stroke();
+
+        // Alette trasparenti
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(-2, -this.size/4 + Math.sin(this.wiggle)*2, this.size/4, this.size/6, -0.5, 0, Math.PI * 2);
+        ctx.ellipse(-2, this.size/4 + Math.sin(this.wiggle)*-2, this.size/4, this.size/6, 0.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+      update() {
+        this.wiggle += 0.5;
+        // Movimento organico
+        this.speedX += Math.sin(this.wiggle * 0.1) * 0.05;
+        this.speedY += Math.cos(this.wiggle * 0.1) * 0.05;
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Rimbalzo o rigenerazione
+        if (this.x < -50 || this.x > canvas.width + 50 || this.y < -50 || this.y > canvas.height + 50) {
+          this.init();
         }
-        window.addEventListener("scroll", reveal);
-        window.onload = reveal;
+      }
+    }
 
-        // --- Bee Particle Logic ---
-        function createBee() {
-            const bee = document.createElement('div');
-            bee.className = 'floating-bee';
-            bee.innerHTML = '🐝';
-            bee.style.left = Math.random() * 100 + 'vw';
-            bee.style.top = Math.random() * 100 + 'vh';
-            document.body.appendChild(bee);
+    function initBees() {
+      bees = [];
+      const count = window.innerWidth < 700 ? 8 : 15; // Meno api su mobile
+      for (let i = 0; i < count; i++) {
+        bees.push(new Bee());
+      }
+    }
 
-            let angle = Math.random() * Math.PI * 2;
-            function move() {
-                angle += 0.02;
-                let x = parseFloat(bee.style.left) + Math.cos(angle) * 0.1;
-                let y = parseFloat(bee.style.top) + Math.sin(angle) * 0.1;
-                bee.style.left = x + 'vw';
-                bee.style.top = y + 'vh';
-                requestAnimationFrame(move);
-            }
-            move();
-        }
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      bees.forEach(bee => {
+        bee.update();
+        bee.draw();
+      });
+      requestAnimationFrame(animate);
+    }
 
-        for(let i=0; i<5; i++) createBee();
-    </script>
+    initBees();
+    animate();
+  </script>
 </body>
 </html>
