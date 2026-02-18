@@ -1,223 +1,382 @@
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BUBBLEBEE | Luxury B&B</title>
-  <style>
-    :root {
-      --bg-warm: #f2eade; 
-      --card-dark: #2a2a2a; 
-      --accent-gold: #d4a94f; 
-      --text-main: #2a2a2a;
-      --text-light: #f5f5f5;
-      --radius-lg: 40px; 
-      --shadow-soft: 0 20px 40px rgba(0,0,0,0.08);
-      --font: 'Segoe UI', Roboto, sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      background-color: var(--bg-warm);
-      color: var(--text-main);
-      font-family: var(--font);
-      line-height: 1.6;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    /* CONTAINER DELLE API ANIMATE */
-    #bee-container {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none; /* Le api non bloccano i click */
-      z-index: 1;
-    }
-
-    .shell { max-width: 1100px; margin: 0 auto; padding: 20px; position: relative; z-index: 10; }
-
-    /* HEADER */
-    header {
-      display: flex; justify-content: space-between; align-items: center; padding: 20px 0;
-    }
-    .logo-area { display: flex; align-items: center; gap: 15px; }
-    .logo-box {
-      width: 50px; height: 50px; background: var(--card-dark);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    }
-    .brand-name { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; }
-
-    /* BUTTONS */
-    .btn-gold {
-      background: linear-gradient(135deg, #e6c27a, #d4a94f);
-      color: #fff; padding: 14px 30px; border-radius: 50px; border: none;
-      font-weight: 600; cursor: pointer; box-shadow: 0 10px 20px rgba(212, 169, 79, 0.2);
-      transition: all 0.3s ease;
-    }
-    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212, 169, 79, 0.3); }
-
-    /* HERO */
-    .hero {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-      margin: 60px 0; align-items: center;
-    }
-    .hero-content h1 { font-size: 3.2rem; line-height: 1.1; margin-bottom: 20px; }
-    .accent { color: var(--accent-gold); }
-    
-    .main-display {
-      background: var(--card-dark); border-radius: var(--radius-lg);
-      height: 400px; overflow: hidden; position: relative;
-      box-shadow: var(--shadow-soft);
-    }
-    .main-display img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
-
-    /* SEZIONE CARD SCURA */
-    .dark-section {
-      display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; margin: 80px 0;
-    }
-    .card-black {
-      background: var(--card-dark); color: white; padding: 50px;
-      border-radius: var(--radius-lg); position: relative;
-    }
-    .card-black h2 { color: var(--accent-gold); font-size: 2rem; margin-bottom: 15px; }
-    .card-black img { width: 100%; border-radius: 25px; margin-top: 25px; }
-
-    /* API STILIZZATA (Disegnata via CSS/SVG) */
-    .floating-bee {
-      position: absolute;
-      width: 26px; height: 26px;
-      transition: transform 0.1s linear;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    }
-
-    footer { text-align: center; padding: 40px; color: #999; font-size: 0.8rem; letter-spacing: 1px; }
-
-    @media (max-width: 850px) {
-      .hero, .dark-section { grid-template-columns: 1fr; }
-      .hero-content h1 { font-size: 2.5rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenuta BubbleBee – Luxury B&B & Bubble Rooms | Sant'Eusanio del Sangro</title>
+<meta name="description" content="Esclusivo B&B di lusso con Bubble Rooms a Sant'Eusanio del Sangro, Abruzzo. 4 suite luxury e 2 Bubble Room per un'esperienza indimenticabile.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="bee-container"></div>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
 
-  <div class="shell">
-    <header>
-      <div class="logo-area">
-        <div class="logo-box">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L15 8H9L12 2Z" fill="#d4a94f"/>
-            <circle cx="12" cy="14" r="6" fill="#d4a94f"/>
-          </svg>
-        </div>
-        <div class="brand-name">Bubblebee<br><span style="font-size:0.7rem; color:var(--accent-gold)">Luxury B&B</span></div>
-      </div>
-      <button class="btn-gold">Prenota Soggiorno</button>
-    </header>
+<!-- NAV -->
 
-    <main>
-      <section class="hero">
-        <div class="hero-content">
-          <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.7rem; margin-bottom: 10px; color: #888;">The Quiet Luxury</p>
-          <h1>Un rifugio tra <br><span class="accent">grano e stelle.</span></h1>
-          <p style="color: #666; margin-bottom: 30px;">Scopri l'emozione di dormire in una bolla trasparente o nel design ricercato delle nostre suite in Abruzzo.</p>
-          <button class="btn-gold">Esplora le Suite</button>
-        </div>
-        <div class="main-display">
-          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000" alt="Tenuta">
-        </div>
-      </section>
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">Tenuta <em>BubbleBee</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="camere.html">Camere & Suite</a></li>
+    <li><a href="bubble.html">Bubble Rooms</a></li>
+    <li><a href="territorio.html">Il Territorio</a></li>
+    <li><a href="contatti.html">Contatti</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Prenota Ora</a>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
 
-      <section class="dark-section">
-        <div class="card-black">
-          <h2>Suite Experience</h2>
-          <p>Materiali naturali, tonalità calde e una vista mozzafiato sulla Maiella. La tua pausa di lusso silenzioso.</p>
-          <img src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?auto=format&fit=crop&w=800" alt="Suite interna">
-        </div>
-        <div style="padding: 20px;">
-          <h2 style="font-size: 2.4rem; margin-top: 40px;">Dettagli di <br>Puro Benessere</h2>
-          <p style="margin: 20px 0; color: #555;">Dalla produzione artigianale di miele biologico alla nostra spa privata immersa negli ulivi.</p>
-          <div style="background: white; padding: 25px; border-radius: 30px; box-shadow: var(--shadow-soft);">
-             <h4 style="color: var(--accent-gold)">La nostra Bottega</h4>
-             <p style="font-size: 0.9rem; margin-top: 5px;">Porta a casa i sapori della nostra terra.</p>
-          </div>
-        </div>
-      </section>
-    </main>
+<div class="mob-menu" id="mob">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="index.html">Home</a>
+  <a href="camere.html">Camere & Suite</a>
+  <a href="bubble.html">Bubble Rooms</a>
+  <a href="territorio.html">Il Territorio</a>
+  <a href="contatti.html">Contatti</a>
+</div>
 
-    <footer>© 2026 BUBBLEBEE LUXURY RETREAT — SANT'EUSANIO DEL SANGRO</footer>
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hex-deco" style="top:10%; right:5%;"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-c">
+    <p class="hero-tag">Via Castellata 6 · Sant'Eusanio del Sangro · Abruzzo</p>
+    <h1 class="hero-h1">Il rifugio di lusso<br>dove <em>dormire</em><br>sotto le stelle</h1>
+    <p class="hero-sub">Luxury B&B · 4 Suite · 2 Bubble Rooms Esclusive</p>
+    <div class="hero-btns">
+      <a href="camere.html" class="btn-g">Scopri le Suite</a>
+      <a href="bubble.html" class="btn-o">Le Bubble Rooms →</a>
+    </div>
   </div>
+  <div class="hero-scroll">
+    <span>Scorri</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
 
-  <script>
-    const container = document.getElementById('bee-container');
-    const beeCount = 12; // Numero di api
-    const bees = [];
+<!-- TICKER -->
 
-    // Crea l'elemento grafico dell'ape
-    function createBee() {
-      const bee = document.createElement('div');
-      bee.className = 'floating-bee';
-      bee.innerHTML = `
-        <svg viewBox="0 0 100 100" width="100%" height="100%">
-          <ellipse cx="35" cy="40" rx="15" ry="25" fill="rgba(255,255,255,0.6)">
-            <animate attributeName="ry" values="25;5;25" dur="0.1s" repeatCount="indefinite" />
-          </ellipse>
-          <ellipse cx="65" cy="40" rx="15" ry="25" fill="rgba(255,255,255,0.6)">
-            <animate attributeName="ry" values="25;5;25" dur="0.1s" repeatCount="indefinite" />
-          </ellipse>
-          <circle cx="50" cy="60" r="18" fill="#d4a94f" />
-          <rect x="40" y="55" width="20" height="4" rx="2" fill="#2a2a2a" />
-          <rect x="40" y="65" width="20" height="4" rx="2" fill="#2a2a2a" />
-        </svg>
-      `;
-      container.appendChild(bee);
-      return {
-        el: bee,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        angle: Math.random() * Math.PI * 2,
-        speed: 1 + Math.random() * 2,
-        turnSpeed: (Math.random() - 0.5) * 0.1
-      };
-    }
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">🌿 <span>4 Suite Luxury</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">🫧 <span>2 Bubble Rooms</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">🏔️ <span>Vista Maiella</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">☕ <span>Colazione Gourmet</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">🍷 <span>Wine Experience</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">⭐ <span>Cieli Stellati Unici</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">🌿 <span>4 Suite Luxury</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">🫧 <span>2 Bubble Rooms</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">🏔️ <span>Vista Maiella</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">☕ <span>Colazione Gourmet</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">🍷 <span>Wine Experience</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">⭐ <span>Cieli Stellati Unici</span></span>
+    <span class="ticker-item ticker-sep">✦</span>
+  </div>
+</div>
 
-    // Inizializza le api
-    for (let i = 0; i < beeCount; i++) {
-      bees.push(createBee());
-    }
+<!-- ABOUT -->
 
-    // Funzione di animazione
-    function animate() {
-      bees.forEach(bee => {
-        // Aggiorna direzione e posizione
-        bee.angle += bee.turnSpeed;
-        bee.x += Math.cos(bee.angle) * bee.speed;
-        bee.y += Math.sin(bee.angle) * bee.speed;
+<section style="background: var(--black);">
+  <div class="inner about-split">
+    <div class="about-txt fade-up">
+      <div class="lbl">La nostra storia</div>
+      <h2 class="h2">Lusso autentico<br>nel cuore <em>d'Abruzzo</em></h2>
+      <div class="gold-bar"></div>
+      <p>Tenuta BubbleBee nasce da una visione precisa: creare un luogo dove il <strong>comfort senza compromessi</strong> si fonde con l'anima selvaggia e autentica dell'Abruzzo. Situata in Via Castellata 6, a Sant'Eusanio del Sangro, la nostra tenuta è un'oasi di eleganza tra le dolci colline che guardano alla Maiella.</p>
+      <p>Quattro suite di lusso finemente arredate e due <strong>Bubble Rooms esclusive</strong> — bolle trasparenti dove dormire sotto il cielo stellato abruzzese — compongono un'esperienza unica che non troverai da nessun'altra parte.</p>
+      <p>Ogni dettaglio è curato: dalle finiture pregiate in marmo e noce massello alle amenities di alta gamma, dalla colazione gourmet con prodotti locali alla wine experience con i grandi vini abruzzesi.</p>
+      <div class="about-stats">
+        <div class="as-box"><div class="as-n">6</div><div class="as-l">Alloggi esclusivi</div></div>
+        <div class="as-box"><div class="as-n">5★</div><div class="as-l">Esperienza garantita</div></div>
+        <div class="as-box"><div class="as-n">360°</div><div class="as-l">Vista panoramica</div></div>
+        <div class="as-box"><div class="as-n">100%</div><div class="as-l">Prodotti locali</div></div>
+      </div>
+    </div>
+    <div class="about-img-wrap fade-up" style="transition-delay:.2s">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=900&q=85" alt="Tenuta BubbleBee interni" loading="lazy"
+          onerror="this.style.display='none'">
+        <div class="img-shade"></div>
+      </div>
+      <div class="about-badge">
+        <span class="ab-big">B&B</span>
+        <span class="ab-sm">Via Castellata 6<br>Sant'Eusanio</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Se esce dallo schermo, rientra dal lato opposto
-        if (bee.x < -50) bee.x = window.innerWidth + 40;
-        if (bee.x > window.innerWidth + 50) bee.x = -40;
-        if (bee.y < -50) bee.y = window.innerHeight + 40;
-        if (bee.y > window.innerHeight + 50) bee.y = -40;
+<!-- STATS -->
 
-        // Applica movimento e rotazione visiva
-        bee.el.style.transform = `translate(${bee.x}px, ${bee.y}px) rotate(${bee.angle + Math.PI/2}rad)`;
-      });
-      requestAnimationFrame(animate);
-    }
+<section style="background: var(--dark2); padding: 60px 64px;">
+  <div class="inner stats">
+    <div class="stat fade-up"><div class="stat-n">4</div><div class="stat-l">Suite Luxury B&B</div></div>
+    <div class="stat fade-up" style="transition-delay:.1s"><div class="stat-n">2</div><div class="stat-l">Bubble Rooms</div></div>
+    <div class="stat fade-up" style="transition-delay:.2s"><div class="stat-n">∞</div><div class="stat-l">Stelle visibili</div></div>
+    <div class="stat fade-up" style="transition-delay:.3s"><div class="stat-n">1</div><div class="stat-l">Esperienza unica</div></div>
+  </div>
+</section>
 
-    animate();
+<!-- ROOMS PREVIEW -->
 
-    // Resize del canvas al cambio finestra
-    window.addEventListener('resize', () => {
-      bees.forEach(bee => {
-        bee.x = Math.random() * window.innerWidth;
-        bee.y = Math.random() * window.innerHeight;
-      });
-    });
-  </script>
+<section style="background: var(--dark);">
+  <div class="inner">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; flex-wrap:wrap; gap:20px;">
+      <div>
+        <div class="lbl">Alloggi</div>
+        <h2 class="h2">Spazi pensati per<br><em>chi sceglie il meglio</em></h2>
+      </div>
+      <a href="camere.html" class="btn-o">Vedi tutte le suite →</a>
+    </div>
+    <div class="rooms-grid">
+      <!-- SUITE MAIELLA -->
+      <a href="camere.html" class="room-card big" style="text-decoration:none">
+        <div class="img-wrap" style="height:100%; background:linear-gradient(135deg,#1a2810,#0d1a08);">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=85" alt="Suite Maiella" loading="lazy" onerror="this.style.display='none'">
+          <div class="img-shade"></div>
+        </div>
+        <div class="room-arr">→</div>
+        <div class="room-card-info">
+          <div class="room-tag">Suite Premier — 45 mq</div>
+          <div class="room-nm">Suite Maiella</div>
+          <p class="room-teaser">Vista panoramica sulla Maiella, vasca freestanding, terrazzo privato e caminetto. La nostra suite più iconica.</p>
+        </div>
+      </a>
+      <!-- SUITE SANGRO -->
+      <a href="camere.html" class="room-card" style="text-decoration:none">
+        <div class="img-wrap" style="height:100%; background:linear-gradient(135deg,#0d1520,#080d15);">
+          <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=85" alt="Suite Sangro" loading="lazy" onerror="this.style.display='none'">
+          <div class="img-shade"></div>
+        </div>
+        <div class="room-arr">→</div>
+        <div class="room-card-info">
+          <div class="room-tag">Suite Deluxe — 38 mq</div>
+          <div class="room-nm">Suite Sangro</div>
+          <p class="room-teaser">Marmo Calacatta, doccia walk-in e vista sul borgo medievale.</p>
+        </div>
+      </a>
+      <!-- BUBBLE PREVIEW -->
+      <a href="bubble.html" class="room-card" style="text-decoration:none">
+        <div class="img-wrap" style="height:100%; background:linear-gradient(135deg,#0d1a22,#05101a);">
+          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=85" alt="Bubble Room" loading="lazy" onerror="this.style.display='none'">
+          <div class="img-shade"></div>
+        </div>
+        <div class="room-arr">→</div>
+        <div class="room-card-info">
+          <div class="room-tag">Bubble Room — Esclusiva</div>
+          <div class="room-nm">Bubble Stella</div>
+          <p class="room-teaser">Dormi sotto le stelle in una bolla trasparente. L'esperienza più unica in Abruzzo.</p>
+        </div>
+      </a>
+      <!-- SUITE BOSCO -->
+      <a href="camere.html" class="room-card" style="text-decoration:none">
+        <div class="img-wrap" style="height:100%; background:linear-gradient(135deg,#0f1a10,#080e08);">
+          <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=85" alt="Suite Bosco" loading="lazy" onerror="this.style.display='none'">
+          <div class="img-shade"></div>
+        </div>
+        <div class="room-arr">→</div>
+        <div class="room-card-info">
+          <div class="room-tag">Suite Nature — 40 mq</div>
+          <div class="room-nm">Suite Bosco</div>
+          <p class="room-teaser">Sauna privata, giardino esclusivo e materiali naturali del bosco appenninico.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BUBBLE TEASER -->
+
+<section style="padding:0; overflow:hidden;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; min-height:580px;">
+    <div class="img-wrap" style="background:linear-gradient(135deg,#05101a,#020810);">
+      <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=900&q=85" alt="Bubble Room notturna" loading="lazy" onerror="this.style.display='none'">
+    </div>
+    <div style="background:var(--dark2); padding:90px 64px; display:flex; flex-direction:column; justify-content:center;">
+      <div class="lbl">Esclusività assoluta</div>
+      <h2 class="h2" style="max-width:420px;">Le nostre<br><em>Bubble Rooms</em><br>sono uniche</h2>
+      <div class="gold-bar"></div>
+      <p style="font-size:.82rem; line-height:1.95; color:var(--muted); margin-bottom:22px; font-weight:200; letter-spacing:.03em;">Immagina di addormentarti in una bolla trasparente mentre il cielo stellato dell'Abruzzo ti avvolge. Le due Bubble Rooms di Tenuta BubbleBee sono il sogno di chi vuole vivere qualcosa che non ha mai vissuto, senza rinunciare a nulla in termini di comfort.</p>
+      <p style="font-size:.82rem; line-height:1.95; color:var(--muted); margin-bottom:36px; font-weight:200; letter-spacing:.03em;">Climatizzazione silenziosa, letto king-size premium, bagno privato di design e un welcome package con champagne abruzzese ad accoglierti. Disponibili tutto l'anno.</p>
+      <a href="bubble.html" class="btn-g" style="width:fit-content">Esplora le Bubble Rooms</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCES -->
+
+<section style="background:var(--dark2);">
+  <div class="inner">
+    <div class="lbl">La nostra offerta</div>
+    <h2 class="h2">Ogni senso<br>trova il suo <em>piacere</em></h2>
+    <div class="exp-grid">
+      <div class="exp-card fade-up">
+        <span class="exp-icon">☕</span>
+        <div class="exp-title">Colazione Gourmet</div>
+        <p class="exp-txt">Ogni mattina una selezione di prodotti artigianali abruzzesi, dolci fatti in casa, formaggi a latte crudo, marmellate biologiche e caffè specialty serviti al tavolo con cura e personalità.</p>
+      </div>
+      <div class="exp-card fade-up" style="transition-delay:.1s">
+        <span class="exp-icon">🛁</span>
+        <div class="exp-title">Benessere & Spa</div>
+        <p class="exp-txt">Trattamenti su prenotazione, sauna finlandese, vasca idromassaggio e prodotti naturali d'Abruzzo per un benessere totale. Un'oasi di pace lontana dal frastuono del quotidiano.</p>
+      </div>
+      <div class="exp-card fade-up" style="transition-delay:.2s">
+        <span class="exp-icon">🍷</span>
+        <div class="exp-title">Wine Experience</div>
+        <p class="exp-txt">Degustazioni private di Montepulciano d'Abruzzo DOCG e Trebbiano selezionati da cantine del territorio. Su richiesta, cene abbinate con prodotti locali servite nella sala privata.</p>
+      </div>
+      <div class="exp-card fade-up" style="transition-delay:.3s">
+        <span class="exp-icon">🥾</span>
+        <div class="exp-title">Esperienze nel Territorio</div>
+        <p class="exp-txt">Itinerari guidati tra borghi medievali e parchi nazionali, escursioni sulla Maiella, visite ai trabocchi sulla costa adriatica e tour gastronomici nelle masserie più autentiche d'Abruzzo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+
+<section style="background:var(--black); position:relative; overflow:hidden;">
+  <div style="position:absolute; top:-60px; left:20px; font-family:'Playfair Display',serif; font-size:28rem; color:rgba(201,160,80,.03); line-height:1; pointer-events:none;">"</div>
+  <div class="inner">
+    <div style="text-align:center; margin-bottom:12px;">
+      <div class="lbl" style="justify-content:center;">Ospiti</div>
+      <h2 class="h2" style="font-size:2.4rem;">Esperienze <em>indimenticabili</em></h2>
+    </div>
+    <div class="testi-wrap">
+      <div class="testi-slide on">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <p class="testi-quote">"Un posto che toglie il fiato. La Bubble Room sotto le stelle ha reso il nostro anniversario il momento più bello della nostra vita. Torneremo sicuramente."</p>
+        <p class="testi-auth">— Giulia & Marco, Milano</p>
+      </div>
+      <div class="testi-slide">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <p class="testi-quote">"La Suite Maiella è un capolavoro di eleganza. Ogni mattina la colazione era un viaggio nei sapori d'Abruzzo. Staff attento, discreto, impeccabile."</p>
+        <p class="testi-auth">— Alessandro T., Roma</p>
+      </div>
+      <div class="testi-slide">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <p class="testi-quote">"Ho soggiornato in strutture di lusso in tutto il mondo, ma qui ho trovato qualcosa di raro: l'autenticità. Un lusso vero, senza ostentazione, con calore umano straordinario."</p>
+        <p class="testi-auth">— Francesca R., Torino</p>
+      </div>
+      <div class="testi-slide">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <p class="testi-quote">"La Suite Bosco con sauna privata è stata una rivelazione. Il silenzio, il profumo del legno, la Maiella fuori dalla finestra... abbiamo già prenotato il ritorno."</p>
+        <p class="testi-auth">— Laurent & Sophie, Parigi</p>
+      </div>
+      <div class="testi-dots" id="dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+
+<section style="background:var(--dark); padding:100px 0;">
+  <div style="padding:0 64px; margin-bottom:44px;" class="inner">
+    <div class="lbl">Gallery</div>
+    <h2 class="h2">Immagini che<br>raccontano <em>bellezza</em></h2>
+  </div>
+  <div class="masonry">
+    <div class="mas-it">
+      <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1000&q=85" alt="Camera di lusso" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a1508,#0d0f08)'">
+    </div>
+    <div class="mas-it">
+      <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=85" alt="Vasca da bagno" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#08121a,#050a12)'">
+    </div>
+    <div class="mas-it">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=85" alt="Colazione gourmet" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0d08,#120808)'">
+    </div>
+    <div class="mas-it">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=85" alt="Paesaggio Abruzzo" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#081a10,#050d08)'">
+    </div>
+    <div class="mas-it">
+      <img src="https://images.unsplash.com/photo-1444464666168-49d633b86797?w=600&q=85" alt="Cielo Abruzzo" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#050815,#020508)'">
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING STRIP -->
+
+<section style="background:var(--dark2); padding:80px 64px; text-align:center;">
+  <div class="inner">
+    <div class="lbl" style="justify-content:center;">Prenota il tuo soggiorno</div>
+    <h2 class="h2" style="font-size:2.5rem; margin-bottom:16px;">Inizia il tuo<br><em>viaggio nel lusso</em></h2>
+    <p style="font-size:.8rem; color:var(--muted); margin-bottom:36px; font-weight:200;">Il nostro team risponde entro 2 ore. Personalizzazione garantita.</p>
+    <div style="display:flex; gap:18px; justify-content:center; flex-wrap:wrap;">
+      <a href="contatti.html" class="btn-g">Richiedi Disponibilità</a>
+      <a href="tel:+39XXXXXXXXXX" class="btn-o">Chiama Ora</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <span class="fl">Tenuta <em>BubbleBee</em></span>
+      <p>Un'esperienza di lusso autentico nel cuore dell'Abruzzo, dove il comfort esclusivo incontra la magia di un territorio unico al mondo.</p>
+      <div class="socials">
+        <a href="#" class="soc" title="Instagram">📷</a>
+        <a href="#" class="soc" title="Facebook">f</a>
+        <a href="#" class="soc" title="TripAdvisor">🌐</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="camere.html">Camere & Suite</a></li>
+        <li><a href="bubble.html">Bubble Rooms</a></li>
+        <li><a href="territorio.html">Il Territorio</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Servizi</h4>
+      <ul>
+        <li><a href="#">Colazione Gourmet</a></li>
+        <li><a href="#">Spa & Benessere</a></li>
+        <li><a href="#">Wine Experience</a></li>
+        <li><a href="#">Escursioni Guidate</a></li>
+        <li><a href="#">Gift Card</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Dove siamo</h4>
+      <address>
+        Via Castellata, 6<br>
+        66037 Sant'Eusanio del Sangro (CH)<br>
+        Abruzzo, Italia<br><br>
+        <a href="tel:+39XXXXXXXXXX">+39 XXX XXX XXXX</a><br>
+        <a href="mailto:info@tenutabubblebee.it">info@tenutabubblebee.it</a>
+      </address>
+    </div>
+  </div>
+  <div class="foot-btm">
+    <p>© 2025 Tenuta BubbleBee · Via Castellata 6 · Sant'Eusanio del Sangro · P.IVA XXXXXXXXXXX</p>
+    <p>Con <span>♥</span> dall'Abruzzo</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+
 </body>
 </html>
